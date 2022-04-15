@@ -43,6 +43,98 @@
 ;; 										(org-export-get-reference parent info))
 ;; 								(or contents ""))))))
 
+(defun org-resume-headline-base (headline contents info)
+	"Base thing o yeah HEADLINE CONTENTS INFO."
+	(let* ((level (+ (org-export-get-relative-level headline info)
+                   (1- (plist-get info :html-toplevel-hlevel))))
+				 (text (org-export-data (org-element-property :title headline) info))
+				 (resume-headline-type (org-element-property :SECTION-TYPE headline)))
+		(cond ((string= resume-headline-type "resume") (org-resume-headline-resume headline contents info))
+					((string= resume-headline-type "work") (org-resume-headline-work headline contents info))
+					((string= resume-headline-type "skills") "")
+					((string= resume-headline-type "projects") "")
+					((string= resume-headline-type "education") "")
+					(t "default"))))
+
+(defun org-resume-headline-resume (headline contents info)
+	(let* ((level (+ (org-export-get-relative-level headline info)
+                   (1- (plist-get info :html-toplevel-hlevel))))
+				 (location (if (org-element-property :LOCATION headline)
+											 (format "<p>%s</p>" (org-element-property :LOCATION headline)) ""))
+				 (phone (if (org-element-property :PHONE headline)
+										(format "<li>%s</li>\n" (org-element-property :PHONE headline)) ""))
+				 (email (if (org-element-property :EMAIL headline)
+										(format "<li>%s</li>\n" (org-element-property :EMAIL headline)) ""))
+				 (github (if (org-element-property :GITHUB headline)
+										 (format "<li>%s</li>\n" (org-element-property :GITHUB headline)) ""))
+				 (text (org-export-data (org-element-property :title headline) info)))
+		(format "<section>%s</section>\n"
+						(format "<h1>%s</h1>\n%s\n<ul>\n%s%s%s</ul>\n%s\n"
+                    text
+										location
+										phone
+										email
+										github
+										contents))))
+
+(defun org-resume-headline-default (headline contents info)
+	(let* (parent (org-export-get-parent headline))
+		(parent-headline-type (org-element-property :SECTION-TYPE parent)))
+		(location (if (org-element-property :LOCATION headline)
+									(format "<p>%s</p>" (org-element-property :LOCATION headline)) ""))
+		(phone (if (org-element-property :PHONE headline)
+							 (format "<li>%s</li>\n" (org-element-property :PHONE headline)) ""))
+		(email (if (org-element-property :EMAIL headline)
+							 (format "<li>%s</li>\n" (org-element-property :EMAIL headline)) ""))
+		(github (if (org-element-property :GITHUB headline)
+								(format "<li>%s</li>\n" (org-element-property :GITHUB headline)) ""))
+		(text (org-export-data (org-element-property :title headline) info))
+
+		)
+
+(defun org-resume-headline-work (headline contents info)
+	(let* ((level (+ (org-export-get-relative-level headline info)
+                   (1- (plist-get info :html-toplevel-hlevel))))
+				 (text (org-export-data (org-element-property :title headline) info))
+				 (resume-headline-type (org-element-property :SECTION-TYPE headline)))
+		(format "<section><h2>%s</h2>\n%s\n</section>" text contents))
+	)
+
+(defun org-resume-headline-skills (headline contents info)
+	(let* ((level (+ (org-export-get-relative-level headline info)
+                   (1- (plist-get info :html-toplevel-hlevel))))
+				 (text (org-export-data (org-element-property :title headline) info))
+				 (resume-headline-type (org-element-property :SECTION-TYPE headline)))
+		contents)
+  )
+
+(defun org-resume-headline-projects (headline contents info)
+	(let* ((level (+ (org-export-get-relative-level headline info)
+                   (1- (plist-get info :html-toplevel-hlevel))))
+				 (text (org-export-data (org-element-property :title headline) info))
+				 (resume-headline-type (org-element-property :SECTION-TYPE headline)))
+		contents)
+  )
+
+(defun org-resume-headline-education (headline contents info)
+	(let* ((level (+ (org-export-get-relative-level headline info)
+                   (1- (plist-get info :html-toplevel-hlevel))))
+				 (text (org-export-data (org-element-property :title headline) info)))
+		(format "<section> <h2>%s</h2>\n%s</section>" text contents)))
+
+(defun org-resume-headline-sub-education (headline contents info)
+	(let* ((level (+ (org-export-get-relative-level headline info)
+                   (1- (plist-get info :html-toplevel-hlevel))))
+				 (dates (if (org-element-property :DATES headline)
+									  (org-element-property :DATES headline) ""))
+				 (major (if (org-element-property :MAJOR headline)
+									  (org-element-property :MAJOR headline) ""))
+				 (location (if (org-element-property :LOCATION headline)
+											 (org-element-property :LOCATION headline) ""))
+				 (text (org-export-data (org-element-property :title headline) info)))
+		(format "<section> <h3>%s</h3>\n<p>%s</p>\n<p>%s</p>\n<p>%s</p>\n%s\n</section>"
+						text location major dates contents)))
+
 (defun org-resume-headline (headline contents info)
   "Transcode a HEADLINE element from Org to HTML.
 CONTENTS holds the contents of the headline.  INFO is a plist
@@ -161,7 +253,7 @@ holding contextual information."
 (org-export-define-derived-backend 'resume 'html
 	:translate-alist '((template . org-resume-template)
 										 (section . org-resume-section)
-										 (headline . org-resume-headline))
+										 (headline . org-resume-headline-base))
 	:menu-entry
   '(?r "Resume Export to HTML"
        ((?M "To temporary buffer"
