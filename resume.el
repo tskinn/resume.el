@@ -175,7 +175,7 @@
     <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\
     <link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto+Slab:wght@200&display=swap\" rel=\"stylesheet\">\
     <script src=\"https://raw.githubusercontent.com/tskinn/resume.el/main/script.js\"></script>\
-    <link href=\"https://github.com/tskinn/resume.el/blame/main/style.css\" rel=\"stylesheet\">\
+    <link href=\"https://raw.githubusercontent.com/tskinn/resume.el/main/style.css\" rel=\"stylesheet\">\
 	</head>\
   <body>\
   <div>\
