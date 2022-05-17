@@ -1,0 +1,88 @@
+@page {
+		size: letter;
+}
+
+body {
+		width: 8.5in;
+		height: 11in;
+		margin: auto;
+		border-width: thick;
+		background: white;
+}
+
+html {
+		background: grey;
+}
+
+svg {
+		vertical-align: baseline;
+}
+
+body > div {
+		margin: 20px;
+}
+
+/* Contact Details */
+h1 {
+		font-family: 'Roboto Slab', serif;
+}
+
+h1 ~ ul {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+}
+
+h1 ~ ul > li {
+		list-style-type: none;
+}
+
+h1 ~ ul > li:not(:last-child)::after {
+		content: "•";
+}
+
+/* Job Details */
+section > h2 ~ section > p:nth-child(2n) {
+		text-align: right;
+}
+
+section > h2 ~ section {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+}
+
+section > h2 ~ section > *:last-child:nth-child(3n - 1) {
+		grid-column: span 2;
+}
+
+/* Header stuff */
+section > h1 {
+		text-align: center;
+}
+
+section > h1 ~ p {
+		text-align: center;
+}
+
+/* Major Section */
+section > section > h2 {
+		border-bottom: 2px solid #333;
+}
+
+h1,h2,h3,p,ul {
+		margin: 2px 0px;
+}
+
+h2 {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 24px;
+}
+
+h3 {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 18.72px;
+}
+
+p,li {
+		font-size: 14px;
+}
