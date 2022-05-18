@@ -26,7 +26,7 @@ function initialize(config) {
 		div.style["z-index"] = 99;
 		div.style["width"] = config.width;
 		div.style["height"] = config.height;
-		div.style["background-color"] = "green";
+		div.style["background-color"] = "#696969";
 		div.style["color"] = "black";
 
 		const showButton = document.createElement("button");
@@ -40,7 +40,7 @@ function initialize(config) {
 		const hideButton = document.createElement("button");
 		hideButton.innerHTML = "hide";
 		hideButton.onclick = function(){
-				div.style["opacity"] = 0.5;
+				div.style["opacity"] = 0.25;
 		};
 
 		div.appendChild(spacer);
