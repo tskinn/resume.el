@@ -6,14 +6,45 @@
 
 ;;; Code:
 
+(defun read-file-contents (filename)
+  "Return the contents of FILENAME."
+  (with-temp-buffer
+    (insert-file-contents filename)
+    (buffer-string)))
+
+(defvar jsscript (read-file-contents "script.js")
+	"Content of javascript stuff.")
+(defvar cssstyle (read-file-contents "style.css")
+	"Content of css style sheet.")
+(defvar html (read-file-contents "main.html")
+	"HTML wrapping the goods.")
+;; (defvar outer-template "<html>\
+;; 	<head>\
+;; 		<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">\
+;; 		<link href=\"https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap\" rel=\"stylesheet\">\
+;; 		<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css\">\
+;;     <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\
+;;     <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\
+;;     <link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto+Slab:wght@200&display=swap\" rel=\"stylesheet\">\
+;;     <script>%s</script>\
+;;     <style>%s</style>\
+;; 	</head>\
+;;   <body>\
+;;   <div>\
+;; 	%s\
+;;   </div>\
+;;   </body>\
+;; </html>"
+;; 	"Wrapper HTML.")
+
 (defun org-resume-export-as-html (&optional async subtreep visible-only)
-  "Export Doc thing"
+  "Export Doc thing."
   (interactive)
   (org-export-to-buffer 'resume "*Org HTML Export*"
     async subtreep visible-only nil nil (lambda () (text-mode))))
 
 (defun org-resume-template (contents info)
-	(format outer-template contents))
+	(format outer-template jsscript cssstyle contents))
 
 (defun org-resume-headline-base (headline contents info)
 	"Base thing o yeah HEADLINE CONTENTS INFO."
@@ -165,23 +196,5 @@
 						(lambda (a s v b)
 							(if a (org-md-export-to-markdown t s v)
 								(org-open-file (org-md-export-to-markdown nil s v))))))))
-
-(setq outer-template "<html>\
-	<head>\
-		<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">\
-		<link href=\"https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap\" rel=\"stylesheet\">\
-		<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css\">\
-    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\
-    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\
-    <link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto+Slab:wght@200&display=swap\" rel=\"stylesheet\">\
-    <script src=\"https://raw.githubusercontent.com/tskinn/resume.el/main/script.js\"></script>\
-    <link href=\"https://raw.githubusercontent.com/tskinn/resume.el/main/style.css\" rel=\"stylesheet\">\
-	</head>\
-  <body>\
-  <div>\
-	%s\
-  </div>\
-  </body>\
-</html>")
 
 ;;; resume.el ends here
