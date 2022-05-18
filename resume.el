@@ -12,30 +12,12 @@
     (insert-file-contents filename)
     (buffer-string)))
 
-(defvar jsscript (read-file-contents "script.js")
+(defvar resume-javascript (read-file-contents "script.js")
 	"Content of javascript stuff.")
-(defvar cssstyle (read-file-contents "style.css")
+(defvar resume-css (read-file-contents "style.css")
 	"Content of css style sheet.")
-(defvar html (read-file-contents "main.html")
+(defvar resume-html (read-file-contents "main.html")
 	"HTML wrapping the goods.")
-;; (defvar outer-template "<html>\
-;; 	<head>\
-;; 		<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">\
-;; 		<link href=\"https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap\" rel=\"stylesheet\">\
-;; 		<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css\">\
-;;     <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\
-;;     <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\
-;;     <link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto+Slab:wght@200&display=swap\" rel=\"stylesheet\">\
-;;     <script>%s</script>\
-;;     <style>%s</style>\
-;; 	</head>\
-;;   <body>\
-;;   <div>\
-;; 	%s\
-;;   </div>\
-;;   </body>\
-;; </html>"
-;; 	"Wrapper HTML.")
 
 (defun org-resume-export-as-html (&optional async subtreep visible-only)
   "Export Doc thing."
@@ -44,7 +26,7 @@
     async subtreep visible-only nil nil (lambda () (text-mode))))
 
 (defun org-resume-template (contents info)
-	(format outer-template jsscript cssstyle contents))
+	(format resume-html resume-javascript resume-css contents))
 
 (defun org-resume-headline-base (headline contents info)
 	"Base thing o yeah HEADLINE CONTENTS INFO."

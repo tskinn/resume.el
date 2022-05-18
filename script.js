@@ -69,6 +69,14 @@ function initialize(config) {
 		}
 
 		document.body.appendChild(div);
+
+		window.addEventListener('beforeprint', (event) => {
+				div.style.display = "none";
+		});
+
+		window.addEventListener('afterprint', (event) => {
+				div.style.display = "grid";
+		});
 }
 
 let config = {
@@ -128,4 +136,7 @@ let config = {
 		]
 };
 
-initialize(config);
+document.addEventListener('DOMContentLoaded', function () {
+		initialize(config);
+});
+
