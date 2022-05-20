@@ -1,0 +1,28 @@
+* resume.el
+
+Adds a custom org-mode exporter that exports to stylized HTML.
+
+** Why
+I dislike working with wysiwyg text editors. I've maintained a resume for many years in Latex and got sick of trying to reproduce a Latex environment every couple years to update my resume.
+
+Upon looking into how to create custom exporters for Emacs' Org-mode, I threw this together with a dash of css and I was able to reproduce my previous resume in little time.
+
+I've also added a little javascript to be able to experiment with font sizes without having to re-export.
+
+** Structure
+*** Root Header
+**** Properties
+- `section-type`
+- `location`
+- `phone`
+- `email`
+- `github`
+*** Root Work Header
+**** Properties
+- `section-type`
+*** Sub Work Header
+**** Properties
+- `dates`
+- `role`
+- `location`
+

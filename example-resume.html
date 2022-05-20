@@ -1,0 +1,324 @@
+<head>
+ 	<link rel="preconnect" href="https://fonts.gstatic.com">
+ 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
+  <script>
+		function adjustFontSize(selector, amount, initial) {
+		document.querySelectorAll(selector).forEach(element => {
+				var estilo = element.style["font-size"];
+				if (estilo == "") {
+						estilo = initial;
+				}
+				element.style["font-size"] = parseFloat(estilo.slice(0,-2)) + amount
+		});
+}
+
+function increaseFontSize(selector, amount, initial) {
+		adjustFontSize(selector, amount, initial);
+}
+
+function decreaseFontSize(selector, amount, initial) {
+		adjustFontSize(selector, 0 - amount, initial);
+}
+
+function initialize(config) {
+		const div = document.createElement("div");
+		div.style["position"] = "fixed";
+		div.style["left"] = 10;
+		div.style["bottom"] = 10;
+		div.style["display"] = "grid";
+		div.style["grid-template-columns"] = "repeat(3, 1fr)";
+		div.style["z-index"] = 99;
+		div.style["width"] = config.width;
+		div.style["height"] = config.height;
+		div.style["background-color"] = "#696969";
+		div.style["color"] = "black";
+
+		const showButton = document.createElement("button");
+		showButton.innerHTML = "show";
+		showButton.onclick = function(){
+				div.style["opacity"] = 1.0;
+		};
+
+		const spacer = document.createElement("div");
+		
+		const hideButton = document.createElement("button");
+		hideButton.innerHTML = "hide";
+		hideButton.onclick = function(){
+				div.style["opacity"] = 0.25;
+		};
+
+		div.appendChild(spacer);
+		div.appendChild(showButton);
+		div.appendChild(hideButton);
+
+		for (let i = 0; i < config.adjusters.length; i++) {
+				let thing = config.adjusters[i];
+				const text = document.createElement("p");
+				text.style["font-size"] = "1.0em";
+				text.innerHTML = thing["displayName"];
+
+				div.appendChild(text);
+
+				const buttonIncrement = document.createElement("button");
+				buttonIncrement.style["font-size"] = "1.0em";
+				buttonIncrement.innerHTML = "+";
+				buttonIncrement.onclick = function(){increaseFontSize(thing["selector"], thing["interval"], thing["defaultSize"])};
+				div.appendChild(buttonIncrement);
+
+				const buttonDecrement = document.createElement("button");
+				buttonDecrement.style["font-size"] = "1.0em";
+				buttonDecrement.innerHTML = "-";
+				buttonDecrement.onclick = function(){decreaseFontSize(thing["selector"], thing["interval"], thing["defaultSize"])};
+				div.appendChild(buttonDecrement);
+		}
+
+		document.body.appendChild(div);
+
+		window.addEventListener('beforeprint', (event) => {
+				div.style.display = "none";
+		});
+
+		window.addEventListener('afterprint', (event) => {
+				div.style.display = "grid";
+		});
+}
+
+let config = {
+		width: "300px",
+		height: "200px",
+		fontSize: "1em",
+		adjusters: [
+				{
+						displayName: "header",
+						selector: "h1",
+						defaultSize: "32px",
+						unit: "px",
+						interval: 2
+				},
+				{
+						displayName: "section",
+						selector: "h2",
+						defaultSize: "24px",
+						unit: "px",
+						interval: 2
+				},
+				{
+						displayName: "sub-section",
+						selector: "h3",
+						defaultSize: "18.72px",
+						unit: "px",
+						interval: 2
+				},
+				{
+						displayName: "sub-sub-section",
+						selector: "h4",
+						defaultSize: "16px",
+						unit: "px",
+						interval: 0.25
+				},
+				{
+						displayName: "sub-section",
+						selector: "h3",
+						defaultSize: "1.17em",
+						unit: "px",
+						interval: 0.25
+				},
+				{
+						displayName: "italics",
+						selector: "i",
+						defaultSize: "20px",
+						unit: "px",
+						interval: 0.25
+				},
+				{
+						displayName: "text",
+						selector: "li",
+						defaultSize: "14px",
+						unit: "px",
+						interval: 0.25
+				}
+		]
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+		initialize(config);
+});
+
+
+	</script>
+  <style>
+		@page {
+		size: letter;
+}
+
+body {
+		width: 8.5in;
+		height: 11in;
+		margin: auto;
+		border-width: thick;
+		background: white;
+}
+
+html {
+		background: grey;
+}
+
+svg {
+		vertical-align: baseline;
+}
+
+body > div {
+		margin: 20px;
+}
+
+/* Contact Details */
+h1 {
+		font-family: 'Roboto Slab', serif;
+}
+
+h1 ~ ul {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+}
+
+h1 ~ ul > li {
+		list-style-type: none;
+}
+
+h1 ~ ul > li:not(:last-child)::after {
+		content: "•";
+}
+
+/* Job Details */
+section > h2 ~ section > p:nth-child(2n) {
+		text-align: right;
+}
+
+section > h2 ~ section {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+}
+
+section > h2 ~ section > *:last-child:nth-child(3n - 1) {
+		grid-column: span 2;
+}
+
+/* Header stuff */
+section > h1 {
+		text-align: center;
+}
+
+section > h1 ~ p {
+		text-align: center;
+}
+
+/* Major Section */
+section > section > h2 {
+		border-bottom: 2px solid #333;
+}
+
+h1,h2,h3,p,ul {
+		margin: 2px 0px;
+}
+
+h2 {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 24px;
+}
+
+h3 {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 18.72px;
+}
+
+p,li {
+		font-size: 14px;
+}
+
+	</style>
+</head>
+<body>
+  <div>
+ 		<section><h1>Joe Smith</h1>
+<p>Some Place</p>
+<ul>
+<li>(123) 456-7890</li>
+<li>myemail@gmail.com</li>
+<li>github.com/<some-username></li>
+</ul>
+<section><h2>Work</h2>
+<section> <h3>Cool Tech Company</h3>
+<p><b>Remote</b></p>
+<p><i>Super Developer</i></p>
+<p><i>August 1999 - Present</i></p>
+<ul>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+</ul>
+</section>
+<section> <h3>Less Cool Tech Company</h3>
+<p><b>Remote</b></p>
+<p><i>DevOps Engineer</i></p>
+<p><i>September 1988 - August 1999</i></p>
+<ul>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+</ul>
+</section>
+
+</section>
+<section><h2>Skills</h2>
+<ul>
+<li><b>Languages:</b> C, C++, Language, Language, Perl, Language, Elisp
+ </li>
+<li><b>Other Technologies:</b> Something, Something, Windows, Something, Something
+ </li>
+<li><b>Something more specific:</b> Another list, of, good, things, to, show, off
+ </li>
+
+</ul>
+</section>
+<section><h2>Projects</h2>
+<ul>
+<li><b>Some Side Project:</b>Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+</li>
+<li><b>Another cool project:</b>Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+</li>
+
+</ul>
+</section>
+<section> <h2>Education</h2>
+<section> <h3>The University</h3>
+<p>Some Place</p>
+<p>BS Computer Science</p>
+<p>July 1972</p>
+<section> <h4>Senior Project: Or Something</h4>
+<ul>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+
+</ul>
+</section>
+<section> <h4>Chief Officer: some cool club</h4>
+<ul>
+<li>Did a bunch of good work to do work and get work done and here are some results of the good work that I done</li>
+
+</ul>
+</section>
+
+</section>
+</section>
+
+</section>
+
+  </div>
+</body>
+</html>

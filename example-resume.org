@@ -1,0 +1,74 @@
+#+OPTIONS: toc:nil
+
+* Joe Smith
+:PROPERTIES:
+:section-type: resume
+:location: Some Place
+:phone: (123) 456-7890
+:email: myemail@gmail.com
+:github: github.com/<some-username>
+:END:
+** Work
+:PROPERTIES:
+:section-type: work
+:END:
+*** Cool Tech Company
+:PROPERTIES:
+:dates: August 1999 - Present
+:role: Super Developer
+:location: Remote
+:END:
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+*** Less Cool Tech Company
+:PROPERTIES:
+:dates: September 1988 - August 1999
+:role: DevOps Engineer
+:location: Remote
+:END:
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+*** TODO This will be hidden
+:PROPERTIES:
+:dates:    January 1980 - April 1988
+:role:     Software Development Intern
+:location: Seattle, WA
+:END:
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+** Skills
+:PROPERTIES:
+:section-type: skills
+:END:
+*** Languages
+**** C, C++, Language, Language, Perl, Language, Elisp
+*** Other Technologies
+**** Something, Something, Windows, Something, Something
+*** Something more specific
+**** Another list, of, good, things, to, show, off
+** Projects
+:PROPERTIES:
+:section-type: projects
+:END:
+*** Some Side Project
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+*** Another cool project
+**** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+** Education
+:PROPERTIES:
+:section-type: education
+:END:
+*** The University
+:PROPERTIES:
+:dates: July 1972
+:major: BS Computer Science
+:location: Some Place
+:END:
+**** Senior Project: Or Something
+***** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+***** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+**** Chief Officer: some cool club
+***** Did a bunch of good work to do work and get work done and here are some results of the good work that I done
+
