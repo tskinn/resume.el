@@ -25,6 +25,13 @@
   (org-export-to-buffer 'resume "*Org HTML Export*"
     async subtreep visible-only nil nil (lambda () (text-mode))))
 
+(defun org-resume-export-to-html (&optional async subtreep visible-only)
+  "Export current buffer to a HTML file."
+  (interactive)
+  (let ((outfile (org-export-output-file-name ".html" subtreep)))
+    (org-export-to-file 'html outfile async subtreep visible-only)))
+
+
 (defun org-resume-template (contents info)
 	(format resume-html resume-javascript resume-css contents))
 
@@ -173,10 +180,10 @@
   '(?r "Resume Export to HTML"
        ((?M "To temporary buffer"
 						(lambda (a s v b) (org-resume-export-as-html a s v)))
-				(?m "To file" (lambda (a s v b) (org-md-export-to-markdown a s v)))
+				(?m "To file" (lambda (a s v b) (org-resume-export-to-html a s v)))
 				(?o "To file and open"
 						(lambda (a s v b)
-							(if a (org-md-export-to-markdown t s v)
-								(org-open-file (org-md-export-to-markdown nil s v))))))))
+							(if a (org-resume-export-to-html t s v)
+								(org-open-file (org-resume-export-to-html nil s v))))))))
 
 ;;; resume.el ends here

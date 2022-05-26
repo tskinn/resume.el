@@ -1,6 +1,8 @@
 * resume.el
 
-Adds a custom org-mode exporter that exports to stylized HTML.
+org-mode -> HTML -> Print PDF
+
+Adds a custom org-mode exporter that exports to stylized HTML. The HTML is meant to be easily printed as a PDF, resulting in a professional looking resume.
 
 ** Why
 I dislike working with wysiwyg text editors. I've maintained a resume for many years in Latex and got sick of trying to reproduce a Latex environment every couple years to update my resume.
